@@ -22,7 +22,6 @@ export default function Home() {
             method: "GET",
         })
         const data = await res.json()
-        console.log(data)
         setCases(data)
     }
 
@@ -34,8 +33,6 @@ export default function Home() {
         fetchCases()
     }, [])
 
-    console.log(client)
-
     return (
         <div className="flex flex-col gap-y-4 items-center p-16">
             <h1 className="font-bold text-2xl">Client Page</h1>
@@ -44,7 +41,7 @@ export default function Home() {
                     <p className="font-bold">Name</p>
                     <p>{client.name}</p>
                     <p className="font-bold">ID</p>
-                    <a href={`/client/${client.id}`} className="text-blue-500">
+                    <a href={`/clients/${client.id}`} className="text-blue-500">
                         {client.id}
                     </a>
                 </div>
@@ -87,13 +84,7 @@ export default function Home() {
                             <td>{c.updatedAt}</td>
                             <td>{c.status}</td>
                             <td className="text-center">{c.enabled ? "✅" : "❌"}</td>
-                            <td>
-                                <ul>
-                                    {c.keyWords.map((k) => (
-                                        <li key={k.id}>{k.word}</li>
-                                    ))}
-                                </ul>
-                            </td>
+                            <td>{c.keyWords?.join(", ")}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -148,7 +139,7 @@ export default function Home() {
                     <input type="text" placeholder="Key Words" id="case-key-words" className="border rounded-md px-2" />
                 </div>
                 <button type="submit" className="border rounded-md px-2">
-                    Add Client
+                    Add Case
                 </button>
             </form>
         </div>

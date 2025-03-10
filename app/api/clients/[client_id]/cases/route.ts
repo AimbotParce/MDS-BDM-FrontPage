@@ -11,7 +11,7 @@ export async function GET(req: Request, { params }: { params: { client_id: strin
         // For each case, get the KeyWords
         for (let i = 0; i < cases.length; i++) {
             const keyWords = await prisma.keyWord.findMany({ where: { caseID: cases[i].id } })
-            cases[i].keyWords = keyWords
+            cases[i].keyWords = keyWords.map((keyWord) => keyWord.word)
         }
 
         return NextResponse.json(cases)
